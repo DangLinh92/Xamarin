@@ -10,21 +10,19 @@ using Xamarin.Forms.Xaml;
 namespace App1
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : ContentPage
+    public partial class StackLayout : ContentPage
     {
-        public MainPage()
+        public StackLayout()
         {
             InitializeComponent();
         }
 
-        public const string TEXT = "DANGLV1";
-
-        private void translateButton_Clicked(object sender, EventArgs e)
+        private void OnNormalTip(object sender, EventArgs e)
         {
 
         }
 
-        private void callButton_Clicked(object sender, EventArgs e)
+        private void OnGenerousTip(object sender, EventArgs e)
         {
 
         }
