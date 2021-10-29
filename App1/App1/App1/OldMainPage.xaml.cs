@@ -14,5 +14,12 @@ namespace App1
         {
             InitializeComponent();
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return base.OnBackButtonPressed();
+            //return true; // ngăn trang quay lại
+            // return false ; // close app
+        }
     }
 }

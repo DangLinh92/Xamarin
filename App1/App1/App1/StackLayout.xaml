@@ -32,8 +32,8 @@
             </StackLayout>
 
             <StackLayout Orientation="Horizontal" >
-                <Button x:Name="roundDown" Text="Round Down" HorizontalOptions="CenterAndExpand"/>
-                <Button x:Name="roundUp"   Text="Round Up" HorizontalOptions="CenterAndExpand"/>
+                <Button x:Name="roundDown" Text="Round Down" HorizontalOptions="CenterAndExpand" Clicked="roundDown_Clicked"/>
+                <Button x:Name="roundUp"   Text="Round Up" HorizontalOptions="CenterAndExpand" Clicked="roundUp_Clicked"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

@@ -26,5 +26,16 @@ namespace App1
         {
 
         }
+
+        private void roundDown_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new MainPage());
+        }
+
+        private void roundUp_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new OldMainPage());
+        }
+
     }
 }

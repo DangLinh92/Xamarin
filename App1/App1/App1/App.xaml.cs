@@ -10,7 +10,8 @@ namespace App1
         {
             InitializeComponent();
 
-            MainPage = new StackLayout();
+            MainPage = new ListViewPage1();
+            //MainPage = new NavigationPage(new ListViewPage());
         }
 
         protected override void OnStart()
