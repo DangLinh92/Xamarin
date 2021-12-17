@@ -59,7 +59,7 @@
     <dxn:TabPageItem>
         <NavigationPage Title="Popup" Icon="ic_popup">
             <x:Arguments>
-                <local:PopupPage/>
+                <local:LoginPage/>
             </x:Arguments>
         </NavigationPage>
     </dxn:TabPageItem>

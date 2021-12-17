@@ -15,5 +15,9 @@
             <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
             <Setter Property="TextColor" Value="White"/>
         </Style>
+        <Style x:Key="LoginButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#0062d3"/>
+            <Setter Property="TextColor" Value="White"/>
+        </Style>
     </Application.Resources>
 </Application>
