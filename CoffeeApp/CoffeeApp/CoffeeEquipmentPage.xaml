@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CoffeeApp.CoffeeEquipmentPage"
+             x:Name="CoffeEquipmentPage">
+    <ContentPage.Content>
+        <ListView ItemSelected="ListView_ItemSelected"
+                  ItemTapped="ListView_ItemTapped"
+                  CachingStrategy="RecycleElement"
+                  BackgroundColor="Transparent"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding .}"
+                  IsGroupingEnabled="True"
+                  GroupDisplayBinding="{Binding Key}"
+                  SeparatorVisibility="None"
+                  IsPullToRefreshEnabled="True"
+                  IsRefreshing="{Binding .}"
+                  Refreshing="ListView_Refreshing"
+                  RefreshCommand="{Binding .}"
+                  RefreshControlColor="Red">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Command="{Binding Source={x:Reference CoffeEquipmentPage},Path=BindingContext.FavoriteCommand}"
+                                      CommandParameter="{Binding .}"
+                                      Text="Favorite"/>
+                            <MenuItem IsDestructive="True" Text="Delete"/>
+                        </ViewCell.ContextActions>
+
+                        <Grid Padding="10">
+                            <Frame>
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="{Binding Image}" WidthRequest="66"/>
+                                    <StackLayout VerticalOptions="Center">
+                                        <Label Style="{StaticResource LabelLarge}" Text="{Binding Name}" VerticalOptions="Center"/>
+                                        <Label Style="{StaticResource LabelLarge}" Text="{Binding Roaster}" VerticalOptions="Center"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>
