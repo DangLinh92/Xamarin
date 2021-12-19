@@ -1,0 +1,10 @@
+You need to install these two plugins inside your project.
+
+https://www.nuget.org/packages/Xam.Plugin.ImageArray/
+
+https://www.nuget.org/packages/Xam.Plugin.Media
+
+
+You'll get the documentation of the camera in this github repository.
+
+https://github.com/jamesmontemagno/MediaPlugin

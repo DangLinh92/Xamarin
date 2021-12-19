@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+			 x:Class="ReadWorkApp.MainPage">
+
+	<StackLayout>
+		<ffimageloading:CachedImage HorizontalOptions="Center" VerticalOptions="Center"
+			WidthRequest="300" HeightRequest="300"
+			DownsampleToViewSize="true"
+			Source = "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5d35eacaf1176b0008974b54%2F0x0.jpg%3FcropX1%3D790%26cropX2%3D5350%26cropY1%3D784%26cropY2%3D3349">
+
+			<ffimageloading:CachedImage.Transformations>
+				<transformations:CircleTransformation>
+
+				</transformations:CircleTransformation>
+			</ffimageloading:CachedImage.Transformations>
+		</ffimageloading:CachedImage>
+	</StackLayout>
+
+</ContentPage>

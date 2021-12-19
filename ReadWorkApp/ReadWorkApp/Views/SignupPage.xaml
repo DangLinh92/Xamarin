@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ReadWorkApp.Views.SignupPage"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Label Text="SING UP" FontSize="Large" HorizontalTextAlignment="Center" Margin="30" TextColor="#303F9F"/>
+                <Entry Placeholder="User name" Text="{Binding Name,Mode=TwoWay}" PlaceholderColor="#666AD1" TextColor="#303F9F" x:Name="EntName" Keyboard="Text"/>
+                <Entry Placeholder="Email" Text="{Binding Email,Mode=TwoWay}" PlaceholderColor="#666AD1" TextColor="#303F9F" x:Name="EntEmail" Keyboard="Email"/>
+                <Entry Placeholder="Password"
+                       Text="{Binding Password,Mode=TwoWay}"
+                       PlaceholderColor="#666AD1"
+                       TextColor="#303F9F"
+                       IsPassword="True"
+                       x:Name="EntPassword"
+                       Keyboard="Default" />
+                <Button Text="CONTINUE"
+                        TextColor="White"
+                        BackgroundColor="#303F9F"
+                        x:Name="BtnSignUp" Command="{Binding SignUpCommand}"/>
+                <Label Text="Already have an account?"
+                       HorizontalTextAlignment="Center"
+                       TextColor="#666AD1" />
+                <Button Text="Login"
+                        BackgroundColor="#666AD1"
+                        TextColor="White"
+                        x:Name="BtnLogin"
+                        Command="{Binding LoginCommand}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

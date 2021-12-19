@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ReadWorkApp.Views.ChangePhonePage"
+             xmlns:viewModel="clr-namespace:ReadWorkApp.ViewModel" x:DataType="viewModel:ChangePhoneViewModel">
+    <ContentPage.Content>
+        <StackLayout Margin="10"
+                     VerticalOptions="CenterAndExpand">
+            <Label FontSize="Large"
+                   TextColor="#707070"
+                   HorizontalOptions="Center"
+                   Text="Add your phone number?" />
+            <Entry Margin="20"
+                   Placeholder="Type Phone Number Here"
+                   Keyboard="Telephone"
+                   PlaceholderColor="#707070"
+                   x:Name="EntPhone" Text="{x:Binding PhoneNumber,Mode=TwoWay}"/>
+            <Button Margin="20"
+                    BackgroundColor="#303F9F"
+                    TextColor="White"
+                    Text="Add Phone"
+                    x:Name="BtnAddPhone" Command="{x:Binding ChangePhoneCmd}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
