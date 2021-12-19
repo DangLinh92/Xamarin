@@ -4,7 +4,8 @@
              xmlns:dxe="clr-namespace:DevExpress.XamarinForms.Editors;assembly=DevExpress.XamarinForms.Editors"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true"
-             x:Class="SmartGas.Views.LoginPage" BackgroundImageSource="oxy_gas.jpg" NavigationPage.HasNavigationBar="False">
+             BackgroundColor="{StaticResource NormalBackgroundColor}"
+             x:Class="SmartGas.Views.LoginPage">
 
     <ContentPage.Content>
         <Grid ColumnSpacing="20" Padding="15" VerticalOptions="Center">
@@ -18,7 +19,7 @@
             </Grid.ColumnDefinitions>
             <dxe:TextEdit Text="{Binding UserName}" LabelText="Login" Margin="0" />
             <dxe:PasswordEdit Text="{Binding Password}" LabelText="Password"  LabelFontSize="Small" Margin="0" Grid.Row="1"/>
-            <Button Text="Log In" Command="{Binding LoginCommand}" Margin="0,10,0,0" Grid.Row="2" Style="{StaticResource LoginButton}"/>
+            <Button Text="Log In" Command="{Binding LoginCommand}" Margin="0,10,0,0" Grid.Row="2" Style="{StaticResource PrimaryButton}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
