@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage
+    x:Class="SmartGas.Views.MainActionPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:local="clr-namespace:SmartGas.Views"
+    android:TabbedPage.BarItemColor="{DynamicResource Steel}"
+    android:TabbedPage.BarSelectedItemColor="{DynamicResource PrimaryColor}"
+    android:TabbedPage.ToolbarPlacement="Bottom"
+    BackgroundColor="{DynamicResource Gray-Bg}"
+    BarBackgroundColor="{DynamicResource Gray-Bg}"
+    NavigationPage.HasNavigationBar="False" NavigationPage.HasBackButton="False">
+    <local:HomePage Title="Home">
+        <local:HomePage.IconImageSource>
+            <FontImageSource
+                FontFamily="FontIcons"
+                Glyph="{StaticResource Home}"
+                Size="16" />
+        </local:HomePage.IconImageSource>
+    </local:HomePage>
+        <local:InventoryListPage Title="Inventory">
+        <local:InventoryListPage.IconImageSource>
+            <FontImageSource
+                FontFamily="FontIcons"
+                Glyph="{StaticResource Category}"
+                Size="16" />
+        </local:InventoryListPage.IconImageSource>
+    </local:InventoryListPage>
+    <local:HistoryTransactionPage Title="History">
+        <local:HistoryTransactionPage.IconImageSource>
+            <FontImageSource
+                FontFamily="FontIcons"
+                Glyph="{StaticResource Notification}"
+                Size="16" />
+        </local:HistoryTransactionPage.IconImageSource>
+    </local:HistoryTransactionPage>
+    <local:SettingsPage Title="Settings">
+        <local:SettingsPage.IconImageSource>
+            <FontImageSource
+                FontFamily="FontIcons"
+                Glyph="{StaticResource Settings}"
+                Size="16" />
+        </local:SettingsPage.IconImageSource>
+    </local:SettingsPage>
+</TabbedPage>
