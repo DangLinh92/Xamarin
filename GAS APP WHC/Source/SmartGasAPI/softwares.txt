@@ -1,0 +1,8 @@
+
+Download and install postman
+https://www.getpostman.com/downloads/
+
+
+Download and install Visual Studio 2019
+https://visualstudio.microsoft.com/
+
