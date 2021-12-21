@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SmartGasAPI.Data
 {
 
-    public class SmartGas_MRO_DBcontext : DbContext
+    public class SmartGas_MRO_DBcontext : SmartGasContext
     {
         public SmartGas_MRO_DBcontext(DbContextOptions<SmartGas_MRO_DBcontext> options) : base(options)
         {
@@ -20,6 +20,11 @@ namespace SmartGasAPI.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasKey(new string[] { "PLANT", "DEPARTMENT", "USER_ID" });
+        }
+
+        public override DbSet<User> GetUser()
+        {
+            return Users;
         }
     }
 }

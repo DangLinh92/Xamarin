@@ -9,9 +9,9 @@ namespace SmartGasAPI.Data
 {
     public static class InstanceDB
     {
-        public static DbContext context(string department, SmartGas_SP_DBContext sparepartDB, SmartGas_MRO_DBcontext mroDB)
+        public static SmartGasContext context(string department, SmartGas_SP_DBContext sparepartDB, SmartGas_MRO_DBcontext mroDB)
         {
-            DbContext db;
+            SmartGasContext db;
             switch (department)
             {
                 case Constants.SMT_DEPT:

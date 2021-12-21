@@ -8,7 +8,7 @@ using SmartGasAPI.Models.SPAREPART;
 namespace SmartGasAPI.Data
 {
     
-    public class SmartGas_SP_DBContext : DbContext
+    public class SmartGas_SP_DBContext : SmartGasContext
     {
         public SmartGas_SP_DBContext(DbContextOptions<SmartGas_SP_DBContext> options) : base(options)
         {
@@ -20,6 +20,11 @@ namespace SmartGasAPI.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasKey(new string[] { "PLANT", "DEPARTMENT", "USER_ID" });
+        }
+
+        public override DbSet<User> GetUser()
+        {
+            return Users;
         }
     }
 }
