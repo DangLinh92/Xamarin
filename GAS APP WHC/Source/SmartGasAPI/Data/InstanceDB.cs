@@ -1,0 +1,28 @@
+﻿using Microsoft.EntityFrameworkCore;
+using SmartGasAPI.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace SmartGasAPI.Data
+{
+    public static class InstanceDB
+    {
+        public static DbContext context(string department, SmartGas_SP_DBContext sparepartDB, SmartGas_MRO_DBcontext mroDB)
+        {
+            DbContext db;
+            switch (department)
+            {
+                case Constants.SMT_DEPT:
+                case Constants.UTILITY_DEPT:
+                    db = sparepartDB;
+                    break;
+                default:
+                    db = mroDB;
+                    break;
+            }
+            return db;
+        }
+    }
+}

@@ -16,6 +16,7 @@
         <styles:AvatarViewStyles />
         <styles:EntryStyles />
         <styles:FontIcons />
+        <styles:FontIcons_GAS />
         <styles:Colors />
         <styles:EditorStyles />
         <styles:FrameStyles />

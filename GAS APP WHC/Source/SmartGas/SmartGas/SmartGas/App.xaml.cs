@@ -10,6 +10,7 @@ using Xamarin.Forms.Xaml;
      [assembly: ExportFont("Montserrat-Regular.ttf", Alias = "Montserrat-Regular")]
      [assembly: ExportFont("Montserrat-SemiBold.ttf", Alias = "Montserrat-SemiBold")]
      [assembly: ExportFont("UIFontIcons.ttf", Alias = "FontIcons")]
+     [assembly: ExportFont("UIFontGas.ttf", Alias = "FontIcons_GAS")]
 namespace SmartGas
 {
     public partial class App : Application

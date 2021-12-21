@@ -62,6 +62,11 @@
     <x:String x:Key="Menu">&#xe715;</x:String>
     <x:String x:Key="Category">&#xe733;</x:String>
     <x:String x:Key="Error">&#xe707;</x:String>
-    <x:String x:Key="Stock">&#xec06;</x:String>
+    <x:String x:Key="Warehouse">&#xe801;</x:String>
+    <x:String x:Key="Chart">&#xe800;</x:String>
+    <x:String x:Key="Import">&#xe802;</x:String>
+    <x:String x:Key="Export">&#xe803;</x:String>
+    <x:String x:Key="History">&#xe804;</x:String>
+    <x:String x:Key="Rotate">&#xe805;</x:String>
 
 </ResourceDictionary>

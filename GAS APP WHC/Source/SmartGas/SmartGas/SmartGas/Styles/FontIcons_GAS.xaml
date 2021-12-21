@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    x:Class="SmartGas.Styles.FontIcons_GAS"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!--  Font icon text  -->
+    <x:String x:Key="Warehouse">&#xe801;</x:String>
+    <x:String x:Key="Chart">&#xe800;</x:String>
+    <x:String x:Key="Import">&#xe802;</x:String>
+    <x:String x:Key="Export">&#xe803;</x:String>
+    <x:String x:Key="History">&#xe804;</x:String>
+    <x:String x:Key="Rotate">&#xe805;</x:String>
+
+</ResourceDictionary>

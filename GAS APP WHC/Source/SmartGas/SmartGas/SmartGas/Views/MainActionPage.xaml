@@ -22,16 +22,16 @@
         <local:InventoryListPage Title="Inventory">
         <local:InventoryListPage.IconImageSource>
             <FontImageSource
-                FontFamily="FontIcons"
-                Glyph="{StaticResource Category}"
+                FontFamily="FontIcons_GAS"
+                Glyph="{StaticResource Warehouse}"
                 Size="16" />
         </local:InventoryListPage.IconImageSource>
     </local:InventoryListPage>
     <local:HistoryTransactionPage Title="History">
         <local:HistoryTransactionPage.IconImageSource>
             <FontImageSource
-                FontFamily="FontIcons"
-                Glyph="{StaticResource Notification}"
+                FontFamily="FontIcons_GAS"
+                Glyph="{StaticResource History}"
                 Size="16" />
         </local:HistoryTransactionPage.IconImageSource>
     </local:HistoryTransactionPage>
