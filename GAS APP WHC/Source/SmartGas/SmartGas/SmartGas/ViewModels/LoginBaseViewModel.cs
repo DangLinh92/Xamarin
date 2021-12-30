@@ -51,6 +51,44 @@ namespace SmartGas.ViewModels
                 this.SetProperty(ref this.email, value);
             }
         }
+
+        private ValidatableObject<string> userId;
+        public ValidatableObject<string> UserId
+        {
+            get
+            {
+                return this.userId;
+            }
+
+            set
+            {
+                if (this.userId == value)
+                {
+                    return;
+                }
+
+                this.SetProperty(ref this.userId, value);
+            }
+        }
+
+        private ValidatableObject<string> department;
+        public ValidatableObject<string> Department
+        {
+            get
+            {
+                return this.department;
+            }
+
+            set
+            {
+                if (this.department == value)
+                {
+                    return;
+                }
+
+                this.SetProperty(ref this.department, value);
+            }
+        }
         #endregion
 
         #region Methods

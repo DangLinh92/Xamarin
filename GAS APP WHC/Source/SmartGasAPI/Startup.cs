@@ -31,6 +31,10 @@ namespace SmartGasAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+            services.AddMvc().AddXmlSerializerFormatters();
+            services.AddDbContext<SmartGas_MRO_DBcontext>(option => option.UseSqlServer(@"Data Source = 10.70.10.97;Initial Catalog = MRO;User Id = sa;Password = Wisol@123;Connect Timeout=3"));
+            services.AddDbContext<SmartGas_SP_DBContext>(option => option.UseSqlServer(@"Data Source = 10.70.10.97;Initial Catalog = SPARE_PART_UPDATE;User Id = sa;Password = Wisol@123;Connect Timeout=3"));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -46,11 +50,6 @@ namespace SmartGasAPI
                         ClockSkew = TimeSpan.Zero,
                     };
                 });
-
-            services.AddControllers();
-            services.AddMvc().AddXmlSerializerFormatters();
-            services.AddDbContext<SmartGas_MRO_DBcontext>(option => option.UseSqlServer(@"Data Source = 10.70.10.97;Initial Catalog = MRO;User Id = sa;Password = Wisol@123;Connect Timeout=3"));
-            services.AddDbContext<SmartGas_SP_DBContext>(option => option.UseSqlServer(@"Data Source = 10.70.10.97;Initial Catalog = SPARE_PART_UPDATE;User Id = sa;Password = Wisol@123;Connect Timeout=3"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,9 +65,8 @@ namespace SmartGasAPI
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.UseAuthentication();
+            app.UseAuthorization();
 
             mroDBContext.Database.EnsureCreated();
             spDBContext.Database.EnsureCreated();

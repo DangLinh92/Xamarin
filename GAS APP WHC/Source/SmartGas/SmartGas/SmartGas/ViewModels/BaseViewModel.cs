@@ -1,10 +1,12 @@
-﻿using SmartGas.Services;
+﻿using SmartGas.Models;
+using SmartGas.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -19,18 +21,33 @@ namespace SmartGas.ViewModels
     {
         #region Fields
 
+        private bool _isBusy = false;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                if (this._isBusy == value)
+                {
+                    return;
+                }
+                this.SetProperty(ref this._isBusy, value);
+            }
+        }
+
         private Command<object> backButtonCommand;
 
         public INavigationService Navigation => DependencyService.Get<INavigationService>();
 
-        #endregion
-
-        #region Event handler
-
-        /// <summary>
-        /// Occurs when the property is changed.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        private ObservableRangeCollection<Unit> _units = new ObservableRangeCollection<Unit>();
+        public ObservableRangeCollection<Unit> Units
+        {
+            get => _units;
+            set
+            {
+                this.SetProperty(ref this._units, value);
+            }
+        }
 
         #endregion
 
@@ -47,15 +64,11 @@ namespace SmartGas.ViewModels
             }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         #endregion
 
         #region Methods
-
-        public virtual Task InitializeAsync(object parameter)
-        {
-            return Task.CompletedTask;
-        }
-
         /// <summary>
         /// The PropertyChanged event occurs when changing the value of property.
         /// </summary>
@@ -65,7 +78,7 @@ namespace SmartGas.ViewModels
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null, Action onChanged = null)
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(storage, value))
             {
@@ -73,10 +86,14 @@ namespace SmartGas.ViewModels
             }
 
             storage = value;
-            onChanged?.Invoke();
-            OnPropertyChanged(propertyName);
+            this.NotifyPropertyChanged(propertyName);
 
             return true;
+        }
+
+        public virtual Task InitializeAsync(object parameter)
+        {
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -94,16 +111,6 @@ namespace SmartGas.ViewModels
                 Application.Current.MainPage.Navigation.PopAsync();
             }
         }
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            var changed = PropertyChanged;
-            if (changed == null)
-                return;
-
-            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         #endregion
     }
 }

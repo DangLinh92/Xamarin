@@ -93,7 +93,7 @@ namespace SmartGas.Validators
             set
             {
                 this.value = value;
-
+                this.NotifyPropertyChanged();
                 if (this.CleanOnChange)
                 {
                     this.IsValid = true;

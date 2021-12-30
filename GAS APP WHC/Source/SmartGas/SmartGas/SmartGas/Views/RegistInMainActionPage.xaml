@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage
+    x:Class="SmartGas.Views.RegistInMainActionPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:local="clr-namespace:SmartGas.Views"
+    android:TabbedPage.BarItemColor="{DynamicResource Steel}"
+    android:TabbedPage.BarSelectedItemColor="{DynamicResource PrimaryColor}"
+    android:TabbedPage.ToolbarPlacement="Top"
+    BackgroundColor="{DynamicResource Gray-Bg}"
+    BarBackgroundColor="{DynamicResource Gray-Bg}"
+    NavigationPage.HasNavigationBar="True" NavigationPage.HasBackButton="True">
+    <local:RegistInPage Title="Nhập Kho">
+        <local:RegistInPage.IconImageSource>
+            <FontImageSource
+                FontFamily="FontIcons_GAS"
+                Glyph="{StaticResource Import}"
+                Size="16" />
+        </local:RegistInPage.IconImageSource>
+    </local:RegistInPage>
+        <local:RegistInListPage Title="Phiếu Nhập">
+        <local:RegistInListPage.IconImageSource>
+            <FontImageSource
+                FontFamily="FontIcons"
+                Glyph="{StaticResource Cart}"
+                Size="16" />
+        </local:RegistInListPage.IconImageSource>
+    </local:RegistInListPage>
+</TabbedPage>

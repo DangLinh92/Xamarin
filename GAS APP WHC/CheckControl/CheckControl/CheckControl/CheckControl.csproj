@@ -31,9 +31,12 @@
     <PackageReference Include="Syncfusion.Xamarin.Core" Version="19.4.0.38" />
     <PackageReference Include="Syncfusion.Xamarin.SfComboBox" Version="19.4.0.38" />
     <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.4.0.38" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.4.0.38" />
     <PackageReference Include="Syncfusion.Xamarin.SfRating" Version="19.4.0.38" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
+    <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -95,6 +98,15 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Themes\LightTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AddContactPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\BusinessRegistrationFormPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ContactEmailEntry.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\EmailEntry.xaml">

@@ -18,9 +18,14 @@ namespace SmartGasAPI
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+             .ConfigureLogging(logging =>
+             {
+                 logging.AddLog4Net(new Log4NetProviderOptions("log4net.config"));
+             });
     }
 }

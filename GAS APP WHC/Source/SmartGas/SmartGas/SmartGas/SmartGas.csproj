@@ -13,7 +13,9 @@
   <ItemGroup>
     <None Remove="Data\catalog.json" />
     <None Remove="Data\ecommerce.json" />
+    <None Remove="Data\errorAndEmpty.json" />
     <None Remove="Data\navigation.json" />
+    <None Remove="Images\NoVideos.svg" />
     <None Remove="Resources\Fonts\Montserrat-Bold.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Medium.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Regular.ttf" />
@@ -23,35 +25,42 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Fonts\UIFontGas.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="Data\catalog.json" />
     <EmbeddedResource Include="Data\ecommerce.json" />
+    <EmbeddedResource Include="Data\errorAndEmpty.json" />
     <EmbeddedResource Include="Data\navigation.json" />
+    <EmbeddedResource Include="Images\NoVideos.svg" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-Bold.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-Medium.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-Regular.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-SemiBold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\UIFontGas.ttf" />
     <EmbeddedResource Include="Resources\Fonts\UIFontIcons.ttf" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="SkiaSharp.Extended" Version="1.60.0" />
+    <PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.0" />
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.4.0.38" />
     <PackageReference Include="Syncfusion.Xamarin.Cards" Version="19.4.0.38" />
     <PackageReference Include="Syncfusion.Xamarin.Core" Version="19.4.0.38" />
     <PackageReference Include="Syncfusion.Xamarin.DataSource" Version="19.4.0.38" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBarcode" Version="19.4.0.38" />
+    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.4.0.38" />
     <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.4.0.38" />
     <PackageReference Include="Syncfusion.Xamarin.SfComboBox" Version="19.4.0.38" />
     <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.4.0.38" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.4.0.38" />
     <PackageReference Include="Syncfusion.Xamarin.SfRating" Version="19.4.0.38" />
     <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.4.0.38" />
     <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.4.0.38" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.3.1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
+    <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,6 +69,12 @@
     </Compile>
     <Compile Update="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RegistInMainActionPage.xaml.cs">
+      <DependentUpon>RegistInMainActionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RegistInPage.xaml.cs">
+      <DependentUpon>RegistInPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\SignUpPage.xaml.cs">
       <DependentUpon>SignUpPage.xaml</DependentUpon>
@@ -133,6 +148,9 @@
     <EmbeddedResource Update="Views\AlbumPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\ContactEmailEntry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\HistoryTransactionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -142,6 +160,12 @@
     <EmbeddedResource Update="Views\InventoryListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\RegistInListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\RegistInMainActionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\MainActionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -149,6 +173,12 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PhotosPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\RegistInPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ScanQRPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SettingsPage.xaml">

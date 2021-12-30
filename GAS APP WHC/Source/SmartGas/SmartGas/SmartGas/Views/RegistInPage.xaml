@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SmartGas.Views.RegistInPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+xmlns:sfDatePicker="clr-namespace:Syncfusion.XForms.Pickers;assembly=Syncfusion.SfPicker.XForms"
+xmlns:calendar="clr-namespace:Syncfusion.SfCalendar.XForms;assembly=Syncfusion.SfCalendar.XForms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+    xmlns:behaviour="clr-namespace:SmartGas.Behaviors"
+    xmlns:behaviours="clr-namespace:SmartGas.Behaviors"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+    xmlns:controls="clr-namespace:SmartGas.Controls"
+    xmlns:converter="clr-namespace:SmartGas.Converters"
+    xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:local="clr-namespace:SmartGas.Views"
+    xmlns:viewModel="clr-namespace:SmartGas.ViewModels" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    Title="Business Registration Form"
+    BackgroundColor="{DynamicResource Gray-100}"
+    NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.BindingContext>
+        <viewModel:RegistInViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:BooleanToColorConverter x:Key="ColorConverter" />
+            <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <converter:NameValidationConverter x:Key="FirstValidationErrorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ControlTemplate>
+        <ControlTemplate>
+            <StackLayout BackgroundColor="{DynamicResource Gray-Bg}" Spacing="0">
+
+                <!--  Title  -->
+                <Label
+                    Margin="0,16"
+                    FontFamily="Montserrat-Medium"
+                    Style="{StaticResource TitleLabelStyle}"
+                    Text="Đăng ký nhập kho" />
+
+                <BoxView BackgroundColor="{DynamicResource Gray-200}" HeightRequest="1" />
+                <ContentPresenter />
+
+            </StackLayout>
+        </ControlTemplate>
+    </ContentPage.ControlTemplate>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout
+                Padding="16,24"
+                BackgroundColor="{DynamicResource Gray-100}"
+                Spacing="0">
+                <buttons:SfButton x:Name="btnScanQR" ShowIcon="True" Margin="0,0,0,10" WidthRequest="120" Text="SCAN" TextColor="White" Style="{StaticResource GradientButtonStyle}" FontFamily="Montserrat-SemiBold" Command="{Binding ScanQRCodeCommand}">
+                    <buttons:SfButton.ImageSource>
+                        <FontImageSource FontFamily="FontIcons_GAS" Glyph="{StaticResource scanQrCode}" Size="100" >
+                        </FontImageSource>
+                    </buttons:SfButton.ImageSource>
+                </buttons:SfButton>
+
+                <!--  Code  -->
+                <Label
+                    Margin="0,0,0,4"
+                    FontFamily="Montserrat-Medium"
+                    FontSize="12"
+                    HeightRequest="18"
+                    Text="Mã"
+                    TextColor="{DynamicResource Gray-800}" />
+
+                <border:SfBorder BorderColor="{Binding Source={x:Reference CodeEntry}, Path=IsFocused, Converter={StaticResource ColorConverter}, ConverterParameter=3}" Style="{StaticResource DataFormBorderlessEntryBorderStyle}">
+                    <Grid ColumnDefinitions="*, Auto">
+
+                        <controls:BorderlessEntry
+                            x:Name="CodeEntry"
+                            Margin="12,0"
+                            HeightRequest="40"
+                            Placeholder="Code"
+                            Style="{StaticResource BorderlessEntryStyle}"
+                            Text="{Binding Code.Value,Mode=TwoWay}">
+                            <Entry.Behaviors>
+                                <behaviour:EntryLineValidationBehaviour IsValid="{Binding Code.IsValid}" />
+                                <xct:EventToCommandBehavior EventName="TextChanged" Command="{Binding CodeChangedCommand}"/>
+                            </Entry.Behaviors>
+                        </controls:BorderlessEntry>
+
+                        <!--  Label to display error icon  -->
+                        <Label
+                            Grid.Column="1"
+                            Margin="12,0"
+                            IsVisible="{Binding Path=IsVisible, Source={x:Reference CodeValidationLabel}}"
+                            Style="{StaticResource ErrorIconLabelStyle}"
+                            Text="{StaticResource Error}" />
+                    </Grid>
+                </border:SfBorder>
+
+                <!--  Label to display error message  -->
+                <Label
+                    x:Name="CodeValidationLabel"
+                    Margin="15,0,0,0"
+                    IsVisible="{Binding Code.IsValid, Converter={StaticResource InverseBoolConverter}}"
+                    Style="{StaticResource SimpleLabelStyle}"
+                    Text="{Binding Code.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                    TextColor="{DynamicResource Red}"
+                    VerticalOptions="FillAndExpand" />
+
+                <!--  Name  -->
+                <Label
+                    Margin="0,24,0,4"
+                    FontFamily="Montserrat-Medium"
+                    FontSize="12"
+                    HeightRequest="18"
+                    Text="Tên"
+                    TextColor="{DynamicResource Gray-800}" />
+
+                <border:SfBorder BorderColor="{Binding Source={x:Reference NameEntry}, Path=IsFocused, Converter={StaticResource ColorConverter}, ConverterParameter=3}" Style="{StaticResource DataFormBorderlessEntryBorderStyle}">
+                    <controls:BorderlessEntry
+                        x:Name="NameEntry"
+                        Margin="12,0"
+                        HeightRequest="40"
+                        Placeholder="Name"
+                        Style="{StaticResource BorderlessEntryStyle}"
+                        Text="{Binding Name,Mode=TwoWay}">
+                        <Entry.Behaviors>
+                            <xct:EventToCommandBehavior EventName="Focused" Command="{Binding NameFocusedCommand}"/>
+                        </Entry.Behaviors>
+                    </controls:BorderlessEntry>
+                </border:SfBorder>
+
+                <!--  Lot NO  -->
+                <Label
+                    Margin="0,24,0,4"
+                    FontFamily="Montserrat-Medium"
+                    FontSize="12"
+                    HeightRequest="18"
+                    Text="Lot No"
+                    TextColor="{DynamicResource Gray-800}" IsVisible="{Binding LotNoVisible}" />
+
+                <border:SfBorder  IsVisible="{Binding LotNoVisible}" BorderColor="{Binding Source={x:Reference LotNoEntry}, Path=IsFocused, Converter={StaticResource ColorConverter}, ConverterParameter=3}" Style="{StaticResource DataFormBorderlessEntryBorderStyle}">
+                    <controls:BorderlessEntry
+                        x:Name="LotNoEntry"
+                        Margin="12,0"
+                        HeightRequest="40"
+                        Placeholder="LotNo"
+                        Style="{StaticResource BorderlessEntryStyle}"
+                        Text="{Binding LotNo,Mode=TwoWay}" />
+                </border:SfBorder>
+
+                <!--  Quantiy  -->
+                <Label
+                    Margin="0,24,0,4"
+                    FontFamily="Montserrat-Medium"
+                    FontSize="12"
+                    HeightRequest="18"
+                    Text="Số Lượng"
+                    TextColor="{DynamicResource Gray-800}" />
+
+                <border:SfBorder BorderColor="{Binding Source={x:Reference QtyEntry}, Path=IsFocused, Converter={StaticResource ColorConverter}, ConverterParameter=3}" Style="{StaticResource DataFormBorderlessEntryBorderStyle}">
+                    <Grid ColumnDefinitions="*, Auto">
+
+                        <controls:BorderlessEntry
+                            x:Name="QtyEntry"
+                            Margin="12,0"
+                            HeightRequest="40"
+                            Placeholder="Số lượng nhập"
+                            Style="{StaticResource BorderlessEntryStyle}"
+                            Text="{Binding Quantity.Value,Mode=TwoWay}">
+                            <Entry.Behaviors>
+                                <behaviour:EntryLineValidationBehaviour IsValid="{Binding Quantity.IsValid}" />
+                            </Entry.Behaviors>
+                        </controls:BorderlessEntry>
+
+                        <!--  Label to display error icon  -->
+                        <Label
+                            Grid.Column="1"
+                            Margin="12,0"
+                            IsVisible="{Binding Path=IsVisible, Source={x:Reference QuantityValidationLabel}}"
+                            Style="{StaticResource ErrorIconLabelStyle}"
+                            Text="{StaticResource Error}" />
+                    </Grid>
+                </border:SfBorder>
+
+                <!--  Label to display error message  -->
+                <Label
+                    x:Name="QuantityValidationLabel"
+                    Margin="15,0,0,0"
+                    IsVisible="{Binding Quantity.IsValid, Converter={StaticResource InverseBoolConverter}}"
+                    Style="{StaticResource SimpleLabelStyle}"
+                    Text="{Binding Quantity.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                    TextColor="{DynamicResource Red}"
+                    VerticalOptions="FillAndExpand" />
+
+                <!--  Qty per stock  -->
+                <Label
+                    Margin="0,24,0,4"
+                    FontFamily="Montserrat-Medium"
+                    FontSize="12"
+                    HeightRequest="18"
+                    Text="Số lượng 1 đơn vị nhập"
+                    TextColor="{DynamicResource Gray-800}" IsVisible="{Binding QtyperstockVisible}" />
+
+                <border:SfBorder BorderColor="{Binding Source={x:Reference QtyPerStockEntry}, Path=IsFocused, Converter={StaticResource ColorConverter}, ConverterParameter=3}" 
+                                 Style="{StaticResource DataFormBorderlessEntryBorderStyle}" IsVisible="{Binding QtyperstockVisible}">
+                    <controls:BorderlessEntry
+                        x:Name="QtyPerStockEntry"
+                        Margin="12,0"
+                        HeightRequest="40"
+                        Placeholder="Số lượng 1 đơn vị nhập"
+                        Style="{StaticResource BorderlessEntryStyle}"
+                        Text="{Binding Qtyperstock,Mode=TwoWay}" />
+                </border:SfBorder>
+
+                <!--  Units -->
+                <Label
+                    Margin="0,24,0,4"
+                    FontFamily="Montserrat-Medium"
+                    FontSize="12"
+                    HeightRequest="18"
+                    Text="Đơn vị"
+                    TextColor="{DynamicResource Gray-800}" IsVisible="{Binding UnitVisible}" />
+
+                <inputLayout:SfTextInputLayout Style="{DynamicResource TextInputLayoutStyle}" IsVisible="{Binding UnitVisible}">
+                    <combobox:SfComboBox
+                        x:Name="UnitPicker"
+                        SelectedValue="{Binding Unit, Mode=TwoWay}"
+                        Style="{StaticResource TextInputLayoutComboBoxStyle}"
+                        VerticalOptions="CenterAndExpand"
+                        Watermark="Đơn vị" DataSource="{Binding Units,Mode=OneWay}" DisplayMemberPath="CODE">
+                        <combobox:SfComboBox.Behaviors>
+                            <xct:EventToCommandBehavior EventName="Tapped" Command="{Binding UnitTappedCommand}"/>
+                        </combobox:SfComboBox.Behaviors>
+                    </combobox:SfComboBox>
+                </inputLayout:SfTextInputLayout>
+
+                <!-- Location -->
+                <Label
+                    Margin="0,24,0,4"
+                    FontFamily="Montserrat-Medium"
+                    FontSize="12"
+                    HeightRequest="18"
+                    Text="Vị trí"
+                    TextColor="{DynamicResource Gray-800}" IsVisible="{Binding LocationVisible}"/>
+
+                <border:SfBorder BorderColor="{Binding Source={x:Reference LocationEntry}, Path=IsFocused, Converter={StaticResource ColorConverter}, ConverterParameter=3}" 
+                                 Style="{StaticResource DataFormBorderlessEntryBorderStyle}" IsVisible="{Binding LocationVisible}">
+                    <controls:BorderlessEntry
+                        x:Name="LocationEntry"
+                        Margin="12,0"
+                        HeightRequest="40"
+                        Placeholder="Vị trí"
+                        Style="{StaticResource BorderlessEntryStyle}"
+                        Text="{Binding Location,Mode=TwoWay}" />
+                </border:SfBorder>
+
+                <!-- Ngày sản xuất -->
+                <Label
+                    Margin="0,24,0,4"
+                    FontFamily="Montserrat-Medium"
+                    FontSize="12"
+                    HeightRequest="18"
+                    Text="Ngày sản xuất"
+                    TextColor="{DynamicResource Gray-800}" IsVisible="{Binding DateSXVisible}" />
+                <sfDatePicker:SfDatePicker x:Name="dateSX"
+                                         PickerMode="Dialog"
+                                         PickerWidth="310"
+                                         PickerHeight="360"
+                                         ShowFooter="True"
+                                         OKButtonBackgroundColor="{DynamicResource Gray-Bg}"
+                                         OkButtonClicked="DatePicker_OkButtonClicked"
+                                         CancelButtonBackgroundColor="{DynamicResource Gray-Bg}"
+                                         ColumnHeaderBackgroundColor="{DynamicResource Gray-Bg}"
+                                         ColumnHeaderTextColor="{DynamicResource Gray-900}"
+                                         HeaderBackgroundColor="{DynamicResource PrimaryColor}"
+                                         OKButtonTextColor="{DynamicResource PrimaryColor}"
+                                         CancelButtonTextColor="{DynamicResource PrimaryColor}"
+                                         BackgroundColor="{DynamicResource Gray-Bg}"
+                                         SelectedItemFontFamily="Montserrat-Regular"
+                                         SelectedItemFontSize="16"
+                                         SelectedItemTextColor="{DynamicResource PrimaryColor}"
+                                         UnselectedItemFontFamily="Montserrat-Regular"
+                                         UnselectedItemFontSize="16"
+                                         UnselectedItemTextColor="{DynamicResource Gray-900}"
+                                         Format="yyyy_MM_dd" IsVisible="{Binding DateSXVisible}"/>
+
+                <border:SfBorder
+                        HeightRequest="40"
+                        Style="{StaticResource DataFormBorderlessEntryBorderStyle}"
+                        VerticalOptions="FillAndExpand" IsVisible="{Binding DateSXVisible}">
+
+                    <buttons:SfButton x:Name="pickerButton" 
+                                              Text="{Binding DateSX,Mode=TwoWay, StringFormat='{0:dd/MM/yyyy}'}"
+                                              FontSize="16"
+                                              FontFamily="Montserrat-Regular"
+                                              HorizontalOptions="FillAndExpand"
+                                              HorizontalTextAlignment="Start"
+                                              TextColor="{DynamicResource Gray-900}"
+                                              BackgroundColor="Transparent" 
+                                              Clicked="DatePicker_Clicked"/>
+
+                </border:SfBorder>
+
+                <!-- Ngày het han -->
+                <Label
+                    Margin="0,24,0,4"
+                    FontFamily="Montserrat-Medium"
+                    FontSize="12"
+                    HeightRequest="18"
+                    Text="Ngày hết hạn"
+                    TextColor="{DynamicResource Gray-800}" IsVisible="{Binding DateExVisible}" />
+                <sfDatePicker:SfDatePicker x:Name="dateEx"
+                                         PickerMode="Dialog"
+                                         PickerWidth="310"
+                                         PickerHeight="360"
+                                         ShowFooter="True"
+                                         OKButtonBackgroundColor="{DynamicResource Gray-Bg}"
+                                         OkButtonClicked="dateEx_OkButtonClicked"
+                                         CancelButtonBackgroundColor="{DynamicResource Gray-Bg}"
+                                         ColumnHeaderBackgroundColor="{DynamicResource Gray-Bg}"
+                                         ColumnHeaderTextColor="{DynamicResource Gray-900}"
+                                         HeaderBackgroundColor="{DynamicResource PrimaryColor}"
+                                         OKButtonTextColor="{DynamicResource PrimaryColor}"
+                                         CancelButtonTextColor="{DynamicResource PrimaryColor}"
+                                         BackgroundColor="{DynamicResource Gray-Bg}"
+                                         SelectedItemFontFamily="Montserrat-Regular"
+                                         SelectedItemFontSize="16"
+                                         SelectedItemTextColor="{DynamicResource PrimaryColor}"
+                                         UnselectedItemFontFamily="Montserrat-Regular"
+                                         UnselectedItemFontSize="16"
+                                         UnselectedItemTextColor="{DynamicResource Gray-900}"
+                                         Format="yyyy_MM_dd" IsVisible="{Binding DateExVisible}"/>
+
+                <border:SfBorder
+                        HeightRequest="40"
+                        Style="{StaticResource DataFormBorderlessEntryBorderStyle}"
+                        VerticalOptions="FillAndExpand" IsVisible="{Binding DateExVisible}">
+
+                    <buttons:SfButton x:Name="pickerButtonDateEx" 
+                                              Text="{Binding DateEx,Mode=TwoWay, StringFormat='{0:dd/MM/yyyy}'}"
+                                              FontSize="16"
+                                              FontFamily="Montserrat-Regular"
+                                              HorizontalOptions="FillAndExpand"
+                                              HorizontalTextAlignment="Start"
+                                              TextColor="{DynamicResource Gray-900}"
+                                              BackgroundColor="Transparent" 
+                                              Clicked="pickerButtonDateEx_Clicked"/>
+
+                </border:SfBorder>
+
+                <!-- User -->
+                <Label
+                    Margin="0,16,0,4"
+                    FontFamily="Montserrat-Medium"
+                    FontSize="12"
+                    HeightRequest="18"
+                    Text="Người tạo"
+                    TextColor="{DynamicResource Gray-800}" />
+
+                <border:SfBorder BorderColor="{Binding Source={x:Reference UserEntry}, Path=IsFocused, Converter={StaticResource ColorConverter}, ConverterParameter=3}" Style="{StaticResource DataFormBorderlessEntryBorderStyle}">
+                    <controls:BorderlessEntry
+                        x:Name="UserEntry"
+                        Margin="12,0"
+                        HeightRequest="40"
+                        Placeholder="Người tạo"
+                        Style="{StaticResource BorderlessEntryStyle}"
+                        Text="{Binding UserCreate,Mode=TwoWay}" />
+                </border:SfBorder>
+
+                <!--  Submit Button  -->
+                <buttons:SfButton
+                    Margin="0,24,0,0"
+                    Command="{Binding SubmitCommand}"
+                    Style="{StaticResource GradientButtonStyle}"
+                    Text="SUBMIT"
+                    WidthRequest="200" />
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

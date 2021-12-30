@@ -1,3 +1,5 @@
+using Syncfusion.XForms.Pickers.iOS;
+using Syncfusion.XForms.iOS.Graphics;
 using Syncfusion.SfRating.XForms.iOS;
 using Syncfusion.ListView.XForms.iOS;
 using Syncfusion.XForms.iOS.ComboBox;
@@ -31,6 +33,7 @@ namespace CheckControl.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            SfDatePickerRenderer.Init();
             SfRatingRenderer.Init();
             SfListViewRenderer.Init();
             SfComboBoxRenderer.Init();
@@ -41,6 +44,9 @@ namespace CheckControl.iOS
             SfGradientViewRenderer.Init();
             SfBorderRenderer.Init();
             SfButtonRenderer.Init();
+
+            ZXing.Net.Mobile.Forms.iOS.Platform.Init();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -2,6 +2,8 @@
 <ContentPage
     x:Class="SmartGas.Views.LoginPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
+xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=mscorlib"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:behaviour="clr-namespace:SmartGas.Behaviors"
     xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
@@ -69,7 +71,45 @@
                             TextColor="{DynamicResource Gray-800}" />
 
                         <!--  Entry to get email ID from user  -->
-                        <local:SimpleEmailEntry Grid.Row="2" Padding="0,24" />
+                        <!--<local:SimpleEmailEntry Grid.Row="2" Padding="0,24" />-->
+                        <StackLayout Grid.Row="2" Padding="0,24">
+                            <!--  Entry to get userId from user  -->
+                            <border:SfBorder
+                                BackgroundColor="{DynamicResource Gray-Bg}"
+                                BorderColor="{Binding Source={x:Reference UserIdEntry}, Path=IsFocused, Converter={StaticResource ColorConverter}, ConverterParameter=3}"
+                                Style="{StaticResource LoginFormBorderlessEntryBorderStyle}">
+                                <Grid ColumnDefinitions="*, Auto">
+                                    <control:BorderlessEntry
+                                        x:Name="UserIdEntry"
+                                        Margin="15,0"
+                                        HeightRequest="40"
+                                        Placeholder="UserId"
+                                        Style="{StaticResource BorderlessEntryStyle}"
+                                        Text="{Binding UserId.Value}">
+                                        <Entry.Behaviors>
+                                            <behaviour:EntryLineValidationBehaviour IsValid="{Binding UserId.IsValid}" />
+                                        </Entry.Behaviors>
+                                    </control:BorderlessEntry>
+
+                                    <!--  Label to display error icon  -->
+                                    <Label
+                                        Grid.Column="1"
+                                        IsVisible="{Binding Path=IsVisible, Source={x:Reference ValidationLabelUser}}"
+                                        Style="{StaticResource ErrorIconLabelStyle}"
+                                        Text="{StaticResource Error}" />
+                                </Grid>
+                            </border:SfBorder>
+
+                            <!--  Label to display error message  -->
+                            <Label
+                                x:Name="ValidationLabelUser"
+                                Margin="15,-3,0,0"
+                                IsVisible="{Binding UserId.IsValid, Converter={StaticResource InverseBoolConverter}}"
+                                Style="{StaticResource SimpleLabelStyle}"
+                                Text="{Binding UserId.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                                TextColor="{DynamicResource Red}"
+                                VerticalOptions="FillAndExpand" />
+                        </StackLayout>
 
                         <StackLayout Grid.Row="3">
                             <!--  Entry to get password from user  -->
@@ -112,12 +152,54 @@
                                 VerticalOptions="FillAndExpand" />
                         </StackLayout>
 
+                        <StackLayout Grid.Row="4" Padding="0,24">
+                            <!--  Entry to get Department from user  -->
+                            <border:SfBorder
+                                BackgroundColor="{DynamicResource Gray-Bg}"
+                                BorderColor="{Binding Source={x:Reference DepartmentEntry}, Path=IsFocused, Converter={StaticResource ColorConverter}, ConverterParameter=3}"
+                                Style="{StaticResource LoginFormBorderlessEntryBorderStyle}">
+                                <Grid ColumnDefinitions="*, Auto">
+                                    <StackLayout>
+                                        <combobox:SfComboBox x:Name="DepartmentEntry"  Margin="15,0"
+                                        HeightRequest="40" MultiSelectMode="None" SelectedItem="{Binding Department.Value,Mode=TwoWay}" Watermark="Department" BorderColor="Transparent">
+                                            <combobox:SfComboBox.ComboBoxSource>
+                                                <ListCollection:List x:TypeArguments="x:String">
+                                                    <x:String>SMT</x:String>
+                                                    <x:String>CSP</x:String>
+                                                    <x:String>WLP1</x:String>
+                                                    <x:String>WLP2</x:String>
+                                                    <x:String>LFEM</x:String>
+                                                    <x:String>UTILITY</x:String>
+                                                </ListCollection:List>
+                                            </combobox:SfComboBox.ComboBoxSource>
+                                        </combobox:SfComboBox>
+                                    </StackLayout>
+
+                                    <!--  Label to display error icon  -->
+                                    <Label
+                                        Grid.Column="1"
+                                        IsVisible="{Binding Path=IsVisible, Source={x:Reference ValidationLabelDepartment}}"
+                                        Style="{StaticResource ErrorIconLabelStyle}"
+                                        Text="{StaticResource Error}" />
+                                </Grid>
+                            </border:SfBorder>
+
+                            <!--  Label to display error message  -->
+                            <Label
+                                x:Name="ValidationLabelDepartment"
+                                Margin="15,-3,0,0"
+                                IsVisible="{Binding Department.IsValid, Converter={StaticResource InverseBoolConverter}}"
+                                Style="{StaticResource SimpleLabelStyle}"
+                                Text="{Binding Department.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                                TextColor="{DynamicResource Red}"
+                                VerticalOptions="FillAndExpand" />
+                        </StackLayout>
+
                         <!--  Forgot password link  -->
                         <buttons:SfButton
                             x:Name="ForgotPasswordLabel"
-                            Grid.Row="4"
+                            Grid.Row="5"
                             Margin="0,16"
-                            Command="{Binding ForgotPasswordCommand}"
                             FontSize="12"
                             HorizontalOptions="End"
                             Style="{StaticResource TransparentButtonStyle}"
@@ -127,7 +209,7 @@
 
                         <!--  Login button  -->
                         <buttons:SfButton
-                            Grid.Row="5"
+                            Grid.Row="6"
                             Margin="0,16"
                             Command="{Binding LoginCommand}"
                             HorizontalOptions="Fill"
@@ -140,27 +222,6 @@
                         Orientation="Horizontal"
                         Spacing="1"
                         VerticalOptions="End">
-
-                        <StackLayout.Padding>
-                            <OnIdiom
-                                x:DataType="Thickness"
-                                Default="0, 48, 0, 0"
-                                Phone="0" />
-                        </StackLayout.Padding>
-
-                        <Label
-                            Style="{StaticResource DescriptionLabelStyle}"
-                            Text="Don't have an account?"
-                            TextColor="{DynamicResource Gray-White}"
-                            VerticalTextAlignment="Center" />
-
-                        <!--  Sign-up button  -->
-                        <buttons:SfButton
-                            Command="{Binding SignUpCommand}"
-                            Style="{StaticResource TransparentButtonStyle}"
-                            Text="Sign Up"
-                            TextColor="{DynamicResource PrimaryColor}" />
-
                     </StackLayout>
 
                 </StackLayout>
@@ -177,6 +238,7 @@
                 TextColor="{DynamicResource Steel}"
                 VerticalOptions="Start" />
 
+            <ActivityIndicator x:Name="IndicatorLogin" IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center" Color="Blue"></ActivityIndicator>
         </Grid>
     </ContentPage.Content>
 

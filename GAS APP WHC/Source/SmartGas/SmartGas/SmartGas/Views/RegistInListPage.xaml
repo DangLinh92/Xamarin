@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SmartGas.Views.RegistInListPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:SmartGas.Behaviors"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:controls="clr-namespace:SmartGas.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="documentList"
+    BackgroundColor="{DynamicResource Gray-Bg}"
+    NavigationPage.HasNavigationBar="False"
+    mc:Ignorable="d">
+
+    <ContentPage.Content>
+
+        <Grid
+            ColumnSpacing="0"
+            RowDefinitions="Auto, Auto, *"
+            RowSpacing="0">
+
+            <StackLayout
+                x:Name="TitleView"
+                Grid.Row="0"
+                Padding="8,8"
+                BackgroundColor="{DynamicResource Gray-Bg}"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                Spacing="0">
+
+                <StackLayout
+                    x:Name="TitleLayout"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="True"
+                    Orientation="Horizontal"
+                    Spacing="0"
+                    VerticalOptions="FillAndExpand">
+
+                    <!--  Back button command  -->
+                    <!--<buttons:SfButton
+                        x:Name="backButton"
+                        Command="{Binding BackButtonCommand}"
+                        CommandParameter="{x:Reference backButton}"
+                        Style="{StaticResource IconButtonStyle}"
+                        Text="{StaticResource Back}" />-->
+
+                    <!--  Documents List page Title  -->
+                    <Label
+                        Margin="16,0"
+                        FontFamily="Montserrat-Medium"
+                        HorizontalOptions="FillAndExpand"
+                        Style="{StaticResource TitleLabelStyle}"
+                        Text="Danh sách phiếu nhập"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center" />
+
+                </StackLayout>
+
+                <StackLayout
+                    x:Name="Search"
+                    HorizontalOptions="EndAndExpand"
+                    IsVisible="False"
+                    Orientation="Horizontal"
+                    Spacing="0">
+
+                    <!--  Back to title layout  -->
+                    <buttons:SfButton
+                        x:Name="BackToTitle"
+                        Style="{StaticResource IconButtonStyle}"
+                        Text="{StaticResource Back}">
+                        <buttons:SfButton.Behaviors>
+                            <behaviors:SearchBarAnimationBehavior AnimationType="shrink" />
+                        </buttons:SfButton.Behaviors>
+                    </buttons:SfButton>
+
+                    <!--  Rounded Search Entry  -->
+                    <border:SfBorder Style="{DynamicResource ThemeBorderStyle}">
+                        <controls:BorderlessEntry
+                            x:Name="SearchEntry"
+                            BindingContext="{x:Reference InputList}"
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="Search here"
+                            Style="{StaticResource BorderlessEntryStyle}"
+                            Text="{Binding SearchText, Mode=TwoWay}" />
+                    </border:SfBorder>
+                </StackLayout>
+
+                <!--  Search Button  -->
+                <buttons:SfButton
+                    x:Name="SearchButton"
+                    IsVisible="True"
+                    Style="{StaticResource IconButtonStyle}"
+                    Text="{StaticResource Search}">
+                    <buttons:SfButton.Behaviors>
+                        <behaviors:SearchBarAnimationBehavior AnimationType="expand" />
+                    </buttons:SfButton.Behaviors>
+                </buttons:SfButton>
+            </StackLayout>
+
+            <BoxView Grid.Row="1" Style="{DynamicResource HorizontalSeparatorStyle}" />
+
+            <StackLayout Grid.Row="2" Spacing="0">
+
+                <controls:SearchableDocumentsList
+                    x:Name="InputList"
+                    AllowSwiping="True"
+                    AutoFitMode="Height"
+                    IsScrollBarVisible="False"
+                    ItemSpacing="0"
+                    ItemsSource="{Binding PutInList,Mode=OneWay}"
+                    SearchText="{Binding SearchText}"
+                    SelectionBackgroundColor="{DynamicResource Gray-200}"
+                    SelectionGesture="Tap"
+                    SelectionMode="Single"
+                    TapCommand="{Binding ItemTappedCommand}"
+                    VerticalOptions="FillAndExpand">
+
+                    <controls:SearchableDocumentsList.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Spacing="0">
+
+                                    <Grid
+                                        ColumnDefinitions="Auto, Auto, Auto, *"
+                                        ColumnSpacing="0"
+                                        HeightRequest="72"
+                                        RowDefinitions="Auto, Auto, Auto"
+                                        RowSpacing="0">
+
+                                        <!--  Account Icon  -->
+                                        <Label
+                                            Grid.RowSpan="3"
+                                            Margin="17,0"
+                                           FontFamily="FontIcons_GAS"
+                                            FontSize="18"
+                                            Text="{StaticResource Import}"
+                                            TextColor="{DynamicResource Gray-600}"
+                                            VerticalOptions="CenterAndExpand" />
+
+                                        <!--  Document Name  -->
+                                        <Label
+                                            Grid.Column="1"
+                                            Grid.ColumnSpan="3"
+                                            Margin="0,13,0,0"
+                                            FontFamily="Montserrat-Medium"
+                                            FontSize="16"
+                                            HeightRequest="24"
+                                            Text="{Binding NAME,Mode=OneWay}"
+                                            TextColor="{DynamicResource Gray-900}" />
+
+                                        <!--  Time  -->
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="0,0,0,14"
+                                            FontFamily="Montserrat-Medium"
+                                            FontSize="14"
+                                            HeightRequest="21"
+                                            Text="{Binding CREATE_DATE,Mode=OneWay}"
+                                            TextColor="{DynamicResource Gray-700}" />
+
+                                        <!--  Document Size  -->
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            Margin="24,0,0,14"
+                                            FontFamily="Montserrat-Medium"
+                                            FontSize="14"
+                                            HeightRequest="21"
+                                            Text="{Binding QUANTITY,Mode=OneWay}"
+                                            TextColor="{DynamicResource Gray-700}" />
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="3"
+                                            Margin="24,0,0,14"
+                                            FontFamily="Montserrat-Medium"
+                                            FontSize="14"
+                                            HeightRequest="21"
+                                            Text="{Binding UNIT,Mode=OneWay}"
+                                            TextColor="{DynamicResource Gray-700}" />
+
+                                        <!--  Seperator  -->
+                                        <BoxView
+                                            Grid.Row="2"
+                                            Grid.ColumnSpan="4"
+                                            Style="{DynamicResource HorizontalSeparatorStyle}" />
+
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </controls:SearchableDocumentsList.ItemTemplate>
+                </controls:SearchableDocumentsList>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

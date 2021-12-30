@@ -1,3 +1,5 @@
+using Syncfusion.XForms.Pickers.iOS;
+using Syncfusion.SfCalendar.XForms.iOS;
 using Syncfusion.XForms.iOS.TabView;
 using Syncfusion.SfRotator.XForms.iOS;
 using Syncfusion.XForms.iOS.Cards;
@@ -35,7 +37,9 @@ namespace SmartGas.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            global::Xamarin.Forms.Forms.Init();
+global::Xamarin.Forms.Forms.Init();
+SfDatePickerRenderer.Init();
+SfCalendarRenderer.Init();
             SfTabViewRenderer.Init();
             SfRotatorRenderer.Init();
             SfCardViewRenderer.Init();
@@ -52,6 +56,8 @@ namespace SmartGas.iOS
             SfGradientViewRenderer.Init();
             SfBorderRenderer.Init();
             SfButtonRenderer.Init();
+            ZXing.Net.Mobile.Forms.iOS.Platform.Init();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -1,6 +1,9 @@
-﻿using SmartGas.Validators;
+﻿using SmartGas.ApiService;
+using SmartGas.Validators;
 using SmartGas.Validators.Rules;
 using SmartGas.Views;
+using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -27,10 +30,12 @@ namespace SmartGas.ViewModels
         {
             this.InitializeProperties();
             this.AddValidationRules();
-            this.LoginCommand = new Command(this.LoginClicked);
-            this.SignUpCommand = new Command(this.SignUpClicked);
-            this.ForgotPasswordCommand = new Command(this.ForgotPasswordClicked);
-            this.SocialMediaLoginCommand = new Command(this.SocialLoggedIn);
+            this.LoginCommand = CommandFactory.Create(LoginClicked);
+
+            IsBusy = false;
+            //this.SignUpCommand = new Command(this.SignUpClicked);
+            //this.ForgotPasswordCommand = new Command(this.ForgotPasswordClicked);
+            //this.SocialMediaLoginCommand = new Command(this.SocialLoggedIn);
         }
 
         #endregion
@@ -65,7 +70,7 @@ namespace SmartGas.ViewModels
         /// <summary>
         /// Gets or sets the command that is executed when the Log In button is clicked.
         /// </summary>
-        public Command LoginCommand { get; set; }
+        public IAsyncCommand LoginCommand { get; set; }
 
         /// <summary>
         /// Gets or sets the command that is executed when the Sign Up button is clicked.
@@ -92,9 +97,11 @@ namespace SmartGas.ViewModels
         /// <returns>Returns the fields are valid or not</returns>
         public bool AreFieldsValid()
         {
-            bool isEmailValid = this.Email.Validate();
+            //bool isEmailValid = this.Email.Validate();
+            bool isUserIdValid = UserId.Validate();
+            bool isDepartmentValid = Department.Validate();
             bool isPasswordValid = this.Password.Validate();
-            return isEmailValid && isPasswordValid;
+            return isUserIdValid && isPasswordValid && isDepartmentValid;
         }
 
         /// <summary>
@@ -102,6 +109,8 @@ namespace SmartGas.ViewModels
         /// </summary>
         private void InitializeProperties()
         {
+            this.UserId = new ValidatableObject<string>();
+            this.Department = new ValidatableObject<string>();
             this.Password = new ValidatableObject<string>();
         }
 
@@ -110,21 +119,33 @@ namespace SmartGas.ViewModels
         /// </summary>
         private void AddValidationRules()
         {
+            this.UserId.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "UserId Required" });
             this.Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "Password Required" });
+            this.Department.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "Department Required" });
         }
 
         /// <summary>
         /// Invoked when the Log In button is clicked.
         /// </summary>
         /// <param name="obj">The Object</param>
-        private void LoginClicked(object obj)
+        private async Task LoginClicked()
         {
-            if (this.AreFieldsValid())
+            if (AreFieldsValid())
             {
-                // Do Something
-            }
+                IsBusy = true;
+                bool result = await LoginApiService.Login(UserId.Value, Password.Value, Department.Value);
 
-            Application.Current.MainPage = new NavigationPage(new MainActionPage());
+                if (result)
+                {
+                    Application.Current.Resources["Department"] = Department.Value;
+                    Application.Current.MainPage = new NavigationPage(new MainActionPage());
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Login fault", "Login fault", "OK");
+                }
+                IsBusy = false;
+            }
         }
 
         /// <summary>

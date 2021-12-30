@@ -11,5 +11,7 @@
     <x:String x:Key="Export">&#xe803;</x:String>
     <x:String x:Key="History">&#xe804;</x:String>
     <x:String x:Key="Rotate">&#xe805;</x:String>
+    <x:String x:Key="qr-code">&#xe806;</x:String>
+    <x:String x:Key="scanQrCode">&#xe807;</x:String>
 
 </ResourceDictionary>

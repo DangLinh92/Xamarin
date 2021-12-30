@@ -14,10 +14,10 @@ using System.Threading.Tasks;
 
 namespace SmartGasAPI.Controllers
 {
-    [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class AccountsController : Controller
+    [Authorize]
+    public class AccountsController : BaseApiController<AccountsController>
     {
         private SmartGas_MRO_DBcontext _mroDBContext;
         private SmartGas_SP_DBContext _spDBContext;
@@ -40,21 +40,23 @@ namespace SmartGasAPI.Controllers
         [HttpGet]
         public IActionResult GetAllUser()
         {
+            var us = HttpContext.User;
             return Ok(_spDBContext.Users);
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(pUser user)
+        public IActionResult Login([FromBody] pUser user)
         {
             var context = InstanceDB.context(user.Department, _spDBContext, _mroDBContext) as SmartGas_MRO_DBcontext;
 
             object userDB;
             bool passSuccess = false;
+            string userName = "";
             if (context != null)
             {
                 userDB = _mroDBContext.Users.FirstOrDefault(u => u.USER_ID.ToLower() == user.Id.ToLower());
-
+                userName = ((Models.MRO.User)userDB).USER_NAME;
                 if (((Models.MRO.User)userDB).PASSWORD == user.Password)
                 {
                     passSuccess = true;
@@ -63,12 +65,13 @@ namespace SmartGasAPI.Controllers
             else
             {
                 userDB = _spDBContext.Users.FirstOrDefault(u => u.USER_ID.ToLower() == user.Id.ToLower());
+                userName = ((Models.SPAREPART.User)userDB).USER_NAME;
                 if (((Models.SPAREPART.User)userDB).PASSWORD == user.Password)
                 {
                     passSuccess = true;
                 }
             }
-           
+
             if (userDB == null) return StatusCode(StatusCodes.Status404NotFound);
 
             if (!passSuccess) return Unauthorized();
@@ -82,6 +85,9 @@ namespace SmartGasAPI.Controllers
             };
 
             var token = _auth.GenerateAccessToken(claims);
+
+            _log4net.Info("Login success : " + userName);
+
             return new ObjectResult(new
             {
                 access_token = token.AccessToken,
@@ -89,7 +95,8 @@ namespace SmartGasAPI.Controllers
                 token_type = token.TokenType,
                 creation_Time = token.ValidFrom,
                 expiration_Time = token.ValidTo,
-                user_Id = user.Id
+                user_Id = user.Id,
+                user_Name = userName
             });
         }
     }

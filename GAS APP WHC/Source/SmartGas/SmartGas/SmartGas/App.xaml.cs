@@ -2,6 +2,7 @@ using SmartGas.Services;
 using SmartGas.ViewModels;
 using SmartGas.Views;
 using System;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -33,7 +34,6 @@ namespace SmartGas
             // to open the corresponding page.
             //navigationService.NavigateToAsync<LoginViewModel>();
             navigationService.NavigateToAsync<LoginViewModel>();
-
             // MainPage = new LoginPage();
         }
 
