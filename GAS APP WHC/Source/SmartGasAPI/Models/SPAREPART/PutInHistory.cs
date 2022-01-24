@@ -13,4 +13,14 @@ namespace SmartGasAPI.Models.SPAREPART
         public string UNIT { get; set; }
         public string CREATE_DATE { get; set; }
     }
+
+    public class PutOutHistory
+    {
+        public string SPARE_PART_CODE { get; set; }
+        public string NAME { get; set; }
+        public double QUANTITY { get; set; }
+        public string UNIT { get; set; }
+        public string CREATE_DATE { get; set; }
+        public string LOCATION { get; set; }
+    }
 }

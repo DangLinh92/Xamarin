@@ -15,8 +15,6 @@ namespace SmartGasAPI.Data
             switch (department)
             {
                 case Constants.SMT_DEPT:
-                case Constants.UTILITY_DEPT:
-                case Constants.WLP2_DEPT:
                     db = sparepartDB;
                     break;
                 default:

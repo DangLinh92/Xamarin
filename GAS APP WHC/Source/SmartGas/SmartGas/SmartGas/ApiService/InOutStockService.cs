@@ -114,5 +114,93 @@ namespace SmartGas.ApiService
                 return new List<PutInModel>();
             }
         }
+
+        public static async Task<List<PutOutModel>> GetPutOutHistory(string department)
+        {
+            try
+            {
+                string url = Constants.API_URL + $"InStock/GetPutOutHistory?department={department}";
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Preferences.Get("accessToken", string.Empty));
+                var response = await httpClient.GetStringAsync(url);
+                return JsonConvert.DeserializeObject<List<PutOutModel>>(response);
+            }
+            catch (Exception ex)
+            {
+                return new List<PutOutModel>();
+            }
+        }
+
+        public static async Task<string> GetGasInforInSparepart(string department, string gasId)
+        {
+            try
+            {
+                string url = Constants.API_URL + $"InStock/GetGasInforInSparepart?department={department}&gasId={gasId}";
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Preferences.Get("accessToken", string.Empty));
+                var response = await httpClient.GetStringAsync(url);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
+
+        public static async Task<List<ReturnGasModel>> GetGasInforReturn(string department)
+        {
+            try
+            {
+                string url = Constants.API_URL + $"InStock/GetGasInforReturn?department={department}";
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Preferences.Get("accessToken", string.Empty));
+                var response = await httpClient.GetStringAsync(url);
+                return JsonConvert.DeserializeObject<List<ReturnGasModel>>(response);
+            }
+            catch (Exception ex)
+            {
+                return new List<ReturnGasModel>();
+            }
+        }
+
+        public static async Task<bool> PutGasInforReturn(ReturnGasModel model)
+        {
+            try
+            {
+                string url = Constants.API_URL + $"InStock/PutGasInforReturn";
+                var httpClient = new HttpClient();
+                var json = JsonConvert.SerializeObject(model);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Preferences.Get("accessToken", string.Empty));
+                var response = await httpClient.PostAsync(url, content);
+                if (!response.IsSuccessStatusCode)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public static async Task<List<InventoryGasModel>> GetGasInventory(string department)
+        {
+            try
+            {
+                string url = Constants.API_URL + $"InStock/GetGasInventory?department={department}";
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Preferences.Get("accessToken", string.Empty));
+                var response = await httpClient.GetStringAsync(url);
+                return JsonConvert.DeserializeObject<List<InventoryGasModel>>(response);
+            }
+            catch (Exception ex)
+            {
+                return new List<InventoryGasModel>();
+            }
+        }
     }
 }

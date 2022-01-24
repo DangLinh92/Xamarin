@@ -17,7 +17,12 @@ namespace SmartGas.Views
         public InventoryListPage()
         {
             this.InitializeComponent();
-            this.BindingContext = InventoryListViewModel.BindingContext;
+            this.BindingContext = new InventoryListViewModel();
+        }
+
+        protected override void OnAppearing()
+        {
+            ((InventoryListViewModel)this.BindingContext)?.GetDataAction.Invoke();
         }
     }
 }

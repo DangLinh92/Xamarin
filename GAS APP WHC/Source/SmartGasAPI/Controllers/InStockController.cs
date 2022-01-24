@@ -215,5 +215,180 @@ namespace SmartGasAPI.Controllers
                 return new List<PutInHistory>();
             }
         }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<PutOutHistory>> GetPutOutHistory(string department)
+        {
+            try
+            {
+                _log4net.Info("GetPutOutHistory: " + department);
+                var context = InstanceDB.context(department, _spDBContext, _mroDBContext) as SmartGas_MRO_DBcontext;
+                if (context == null) /*Spare part*/
+                {
+                    ResultDB resultDB = _spDBContext.GetPutOutHistory(department);
+
+                    if (resultDB.N_RETURN == 0)
+                    {
+                        List<PutOutHistory> lst = Helper.ConvertDataTable<PutOutHistory>((DataTable)resultDB.Data);
+                        return lst;
+                    }
+                }
+                else
+                {
+                    ResultDB resultDB = _mroDBContext.GetPutOutHistory(department);
+
+                    if (resultDB.N_RETURN == 0)
+                    {
+                        return Helper.ConvertDataTable<PutOutHistory>((DataTable)resultDB.Data);
+                    }
+                }
+
+                return new List<PutOutHistory>();
+            }
+            catch (Exception)
+            {
+                return new List<PutOutHistory>();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult<string> GetGasInforInSparepart(string department, string gasId)
+        {
+            try
+            {
+                _log4net.Info("GetGasInforInSparepart: " + department);
+                var context = InstanceDB.context(department, _spDBContext, _mroDBContext) as SmartGas_MRO_DBcontext;
+
+                if (context == null) /*Spare part*/
+                {
+                    ResultDB resultDB = _spDBContext.GetGasInforInSparepart(department, gasId);
+
+                    if (resultDB.N_RETURN == 0)
+                    {
+                        string result = ((DataTable)resultDB.Data).Rows[0][0] + "";
+                        return result;
+                    }
+                }
+                else
+                {
+                    ResultDB resultDB = _mroDBContext.GetGasInforInMro(department, gasId);
+
+                    if (resultDB.N_RETURN == 0)
+                    {
+                        return ((DataTable)resultDB.Data).Rows[0][0] + "";
+                    }
+                }
+
+                return "";
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<pReturnGasModel>> GetGasInforReturn(string department)
+        {
+            try
+            {
+                _log4net.Info("GetGasInforReturn: " + department);
+                var context = InstanceDB.context(department, _spDBContext, _mroDBContext) as SmartGas_MRO_DBcontext;
+
+                if (context == null) /*Spare part*/
+                {
+                    ResultDB resultDB = _spDBContext.GetGasInforReturn(department);
+
+                    if (resultDB.N_RETURN == 0)
+                    {
+                        return Helper.ConvertDataTable<pReturnGasModel>((DataTable)resultDB.Data);
+                    }
+                }
+                else
+                {
+                    ResultDB resultDB = _mroDBContext.GetGasInforReturn(department);
+
+                    if (resultDB.N_RETURN == 0)
+                    {
+                        return Helper.ConvertDataTable<pReturnGasModel>((DataTable)resultDB.Data);
+                    }
+                }
+
+                return new List<pReturnGasModel>();
+            }
+            catch (Exception)
+            {
+                return new List<pReturnGasModel>();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult PutGasInforReturn([FromBody] pReturnGasModel pReturnGasModel)
+        {
+            _log4net.Info("PARAM: " + pReturnGasModel.gas_id);
+
+            var context = InstanceDB.context(pReturnGasModel.dept_code, _spDBContext, _mroDBContext) as SmartGas_MRO_DBcontext;
+
+            ResultDB resultDB = null;
+
+            if (context == null) /*Spare part*/
+            {
+                resultDB = _spDBContext.PutReturnGas(pReturnGasModel);
+                _log4net.Error("PutGasInforReturn: " + resultDB.V_RETURN);
+            }
+            else
+            {
+                resultDB = _mroDBContext.PutReturnGas(pReturnGasModel);
+                _log4net.Error("mro PutGasInforReturn: " + resultDB.V_RETURN);
+            }
+
+            if (resultDB.N_RETURN == 0)
+            {
+                return StatusCode(StatusCodes.Status200OK);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<InventoryGasModel>> GetGasInventory(string department)
+        {
+            try
+            {
+                _log4net.Info("GetGasInforReturn: " + department);
+                var context = InstanceDB.context(department, _spDBContext, _mroDBContext) as SmartGas_MRO_DBcontext;
+
+                if (context == null) /*Spare part*/
+                {
+                    ResultDB resultDB = _spDBContext.GetGasInventory(department);
+
+                    _log4net.Info("GetGasInforReturn: N_RETURN" + resultDB.N_RETURN);
+                    if (resultDB.N_RETURN == 0)
+                    {
+                        _log4net.Info("GetGasInforReturn: " + ((DataTable)resultDB.Data).Rows[0][0]);
+                        List<InventoryGasModel> lstGas = Helper.ConvertDataTable<InventoryGasModel>((DataTable)resultDB.Data);
+                        _log4net.Info("GetGasInforReturn: " + lstGas.Count);
+                        return lstGas;
+                    }
+                }
+                else
+                {
+                    ResultDB resultDB = _mroDBContext.GetGasInventory(department);
+
+                    if (resultDB.N_RETURN == 0)
+                    {
+                        return Helper.ConvertDataTable<InventoryGasModel>((DataTable)resultDB.Data);
+                    }
+                }
+
+                return new List<InventoryGasModel>();
+            }
+            catch (Exception ex)
+            {
+                _log4net.Info("GetGasInforReturn: ex" + ex.Message);
+                return new List<InventoryGasModel>();
+            }
+        }
+
     }
 }

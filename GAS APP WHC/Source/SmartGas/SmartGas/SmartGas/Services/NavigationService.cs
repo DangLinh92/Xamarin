@@ -55,14 +55,21 @@ namespace SmartGas.Services
 
         Page CreatePage(Type viewModelType, object parameter)
         {
-            Type pageType = GetPageTypeForViewModel(viewModelType);
-            if (pageType == null)
+            try
             {
-                throw new Exception($"Cannot locate page type for {viewModelType}");
-            }
+                Type pageType = GetPageTypeForViewModel(viewModelType);
+                if (pageType == null)
+                {
+                    throw new Exception($"Cannot locate page type for {viewModelType}");
+                }
 
-            Page page = Activator.CreateInstance(pageType) as Page;
-            return page;
+                Page page = Activator.CreateInstance(pageType) as Page;
+                return page;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         INavigation GetActiveNavigation()

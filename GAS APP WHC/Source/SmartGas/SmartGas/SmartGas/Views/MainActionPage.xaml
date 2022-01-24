@@ -19,7 +19,7 @@
                 Size="16" />
         </local:HomePage.IconImageSource>
     </local:HomePage>
-        <local:InventoryListPage Title="Inventory">
+    <local:InventoryListPage Title="Inventory">
         <local:InventoryListPage.IconImageSource>
             <FontImageSource
                 FontFamily="FontIcons_GAS"
@@ -27,14 +27,6 @@
                 Size="16" />
         </local:InventoryListPage.IconImageSource>
     </local:InventoryListPage>
-    <local:HistoryTransactionPage Title="History">
-        <local:HistoryTransactionPage.IconImageSource>
-            <FontImageSource
-                FontFamily="FontIcons_GAS"
-                Glyph="{StaticResource History}"
-                Size="16" />
-        </local:HistoryTransactionPage.IconImageSource>
-    </local:HistoryTransactionPage>
     <local:SettingsPage Title="Settings">
         <local:SettingsPage.IconImageSource>
             <FontImageSource

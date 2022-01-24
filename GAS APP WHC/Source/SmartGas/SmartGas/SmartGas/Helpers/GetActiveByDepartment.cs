@@ -17,8 +17,6 @@ namespace SmartGas.Helpers
                 switch (department)
                 {
                     case Constants.SMT_DEPT:
-                    case Constants.UTILITY_DEPT:
-                    case Constants.WLP2_DEPT:
                         result = true;
                         break;
                     default:

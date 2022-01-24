@@ -47,5 +47,14 @@ namespace SmartGas.Views
                 (BindingContext as RegistInViewModel).QR_Code = qrCode;
             }
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            if (Application.Current.Resources.ContainsKey("QrCode"))
+            {
+                Application.Current.Resources["QrCode"] = "";
+            }
+            return base.OnBackButtonPressed();
+        }
     }
 }

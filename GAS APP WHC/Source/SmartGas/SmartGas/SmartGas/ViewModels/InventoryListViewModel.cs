@@ -1,7 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using SmartGas.ApiService;
+using SmartGas.Models;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Model = SmartGas.Models.Story;
@@ -17,8 +22,6 @@ namespace SmartGas.ViewModels
     {
         #region Fields
 
-        private static InventoryListViewModel articleListViewModel;
-
         private Command menuCommand;
 
         private Command bookmarkCommand;
@@ -27,9 +30,9 @@ namespace SmartGas.ViewModels
 
         private Command itemSelectedCommand;
 
-        private ObservableCollection<Model> featuredStories;
+        private ObservableCollection<InventoryGasModel> gasInventories;
 
-        private ObservableCollection<Model> latestStories;
+        public Action GetDataAction;
 
         #endregion
 
@@ -38,8 +41,13 @@ namespace SmartGas.ViewModels
         /// <summary>
         /// Initializes a new instance for the <see cref="InventoryListViewModel" /> class.
         /// </summary>
-        static InventoryListViewModel()
+        public InventoryListViewModel()
         {
+            gasInventories = new ObservableCollection<InventoryGasModel>();
+            GetDataAction = async () =>
+            {
+                await GetData();
+            };
         }
 
         #endregion
@@ -47,52 +55,24 @@ namespace SmartGas.ViewModels
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets the value of article list view model.
-        /// </summary>
-        public static InventoryListViewModel BindingContext =>
-            articleListViewModel = PopulateData<InventoryListViewModel>("catalog.json");
-
-        /// <summary>
-        /// Gets or sets the property that has been bound with the rotator view, which displays the articles featured stories items.
-        /// </summary>
-        [DataMember(Name = "featuredStories")]
-        public ObservableCollection<Model> FeaturedStories
-        {
-            get
-            {
-                return this.featuredStories;
-            }
-
-            set
-            {
-                if (this.featuredStories == value)
-                {
-                    return;
-                }
-
-                this.SetProperty(ref this.featuredStories, value);
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the property that has been bound with the list view, which displays the articles latest stories items.
         /// </summary>
-        [DataMember(Name = "latestStories")]
-        public ObservableCollection<Model> LatestStories
+        [DataMember(Name = "GasInventories")]
+        public ObservableCollection<InventoryGasModel> GasInventories
         {
             get
             {
-                return this.latestStories;
+                return this.gasInventories;
             }
 
             set
             {
-                if (this.latestStories == value)
+                if (this.gasInventories == value)
                 {
                     return;
                 }
 
-                this.SetProperty(ref this.latestStories, value);
+                this.SetProperty(ref this.gasInventories, value);
             }
         }
 
@@ -147,6 +127,25 @@ namespace SmartGas.ViewModels
         #endregion
 
         #region Methods
+
+
+        private async Task GetData()
+        {
+            try
+            {
+                string dept = Application.Current.Resources["Department"] + "";
+                List<InventoryGasModel> lstGas = await InOutStockService.GetGasInventory(dept);
+                GasInventories.Clear();
+                foreach (var item in lstGas)
+                {
+                    GasInventories.Add(item);
+                }
+            }
+            catch (System.Exception)
+            {
+                gasInventories = new ObservableCollection<InventoryGasModel>();
+            }
+        }
 
         /// <summary>
         /// Populates the data for view model from json file.

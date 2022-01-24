@@ -18,7 +18,7 @@ namespace SmartGas.Views
             this.BindingContext = new RegistInListViewModel();
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
            //await (BindingContext as RegistInListViewModel).LoadData();
         }

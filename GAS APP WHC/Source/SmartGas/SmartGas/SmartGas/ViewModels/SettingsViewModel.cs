@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using SmartGas.Views;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
 namespace SmartGas.ViewModels
@@ -144,6 +146,10 @@ namespace SmartGas.ViewModels
         private void LogoutClicked(object obj)
         {
             // Do something
+            Preferences.Set("accessToken", null);
+            Preferences.Set("userId", null);
+            Preferences.Set("userName", null);
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
         }
 
         #endregion

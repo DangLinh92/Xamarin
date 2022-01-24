@@ -26,6 +26,7 @@ namespace SmartGas.Views
             Device.BeginInvokeOnMainThread(() =>
             {
                 scanResultText.Text = result.Text;
+                ScanQRViewModel.BindingContext.GoBackCommand.Execute(scanResultText);
             });
         }
     }

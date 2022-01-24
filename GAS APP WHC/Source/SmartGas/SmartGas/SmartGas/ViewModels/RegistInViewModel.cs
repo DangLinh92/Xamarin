@@ -2,6 +2,7 @@
 using SmartGas.Helpers;
 using SmartGas.Models;
 using SmartGas.Service;
+using SmartGas.Services;
 using SmartGas.Utilities;
 using SmartGas.Validators;
 using SmartGas.Validators.Rules;
@@ -35,10 +36,7 @@ namespace SmartGas.ViewModels
             UnitTappedCommand = CommandFactory.Create(UnitTappedAction);
             CodeChangedCommand = new Command(CodeChangedAction);
             NameFocusedCommand = CommandFactory.Create(NameFocusedAction);
-            //_ = GetUnits();
         }
-
-
 
         private async Task ScanQRCodeClicked()
         {
@@ -275,6 +273,11 @@ namespace SmartGas.ViewModels
         /// <param name="obj">The object</param>
         private async void SubmitClicked(object obj)
         {
+            bool answer = await Application.Current.MainPage.DisplayAlert("Question?", "Xác nhận nhập kho", "Yes", "No");
+
+            if (answer == false)
+                return;
+
             if (this.AreFieldsValid())
             {
                 PutInOutModel model = new PutInOutModel();
@@ -323,10 +326,19 @@ namespace SmartGas.ViewModels
             DateSX = DateTime.Now;
             UserCreate = "";
             Qtyperstock = 0;
+            if (Application.Current.Resources.ContainsKey("QrCode"))
+            {
+                Application.Current.Resources["QrCode"] = "";
+            }
         }
 
         private async Task GetDataFromQRCode(string qrCode)
         {
+            if (string.IsNullOrEmpty(qrCode))
+            {
+                return;
+            }
+
             if (GetActiveByDepartment.Active()) // spare part system  TEST1234$VI TRI$OK$2021-12-28$2199-01-01$1$EA
             {
                 string[] infors = qrCode.Split('$');

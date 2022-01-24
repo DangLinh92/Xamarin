@@ -1,4 +1,5 @@
 ﻿using SmartGas.Models;
+using SmartGas.Utilities;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -26,36 +27,65 @@ namespace SmartGas.ViewModels
         /// </summary>
         public HomeViewModel()
         {
+            #region comment
+            //string dept = Application.Current.Resources["Department"] + "";
+            //if (dept == Constants.SMT_DEPT)
+            //{
+            //    categoryActions = new ObservableCollection<CategoryAction>()
+            //        {
+            //                new CategoryAction()
+            //                {
+            //                    CategoryName = "NHÂP KHO",
+            //                    BackgroundGradientStart = "#f59083",
+            //                    BackgroundGradientEnd = "#fae188",
+            //                    Glyph = "\xe802"
+            //                },
+            //                 new CategoryAction()
+            //                {
+            //                    CategoryName = "XUẤT KHO",
+            //                    BackgroundGradientStart = "#ff7272",
+            //                    BackgroundGradientEnd = "#f650c5",
+            //                    Glyph = "\xe803"
+            //                },
+            //                  new CategoryAction()
+            //                {
+            //                    CategoryName = "TRẢ BÌNH RỖNG",
+            //                    BackgroundGradientStart = "#5e7cea",
+            //                    BackgroundGradientEnd = "#1dcce3",
+            //                    Glyph = "\xe805"
+            //                }
+            //                //},
+            //                //    new CategoryAction()
+            //                //{
+            //                //    CategoryName = "BIỂU ĐỒ",
+            //                //    BackgroundGradientStart = "#255ea6",
+            //                //    BackgroundGradientEnd = "#b350d1",
+            //                //    Glyph = "\xe800"
+            //                //}
+            //        };
+            //}
+            //else
+            //{
+
+            //}
+            #endregion
+
             categoryActions = new ObservableCollection<CategoryAction>()
             {
-                new CategoryAction()
-                {
-                    CategoryName = "NHÂP KHO",
-                    BackgroundGradientStart = "#f59083",
-                    BackgroundGradientEnd = "#fae188",
-                    Glyph = "\xe802"
-                },
                  new CategoryAction()
-                {
+                 {
                     CategoryName = "XUẤT KHO",
                     BackgroundGradientStart = "#ff7272",
                     BackgroundGradientEnd = "#f650c5",
                     Glyph = "\xe803"
-                },
-                  new CategoryAction()
-                {
+                 },
+                 new CategoryAction()
+                 {
                     CategoryName = "TRẢ BÌNH RỖNG",
                     BackgroundGradientStart = "#5e7cea",
                     BackgroundGradientEnd = "#1dcce3",
                     Glyph = "\xe805"
-                },
-                    new CategoryAction()
-                {
-                    CategoryName = "BIỂU ĐỒ",
-                    BackgroundGradientStart = "#255ea6",
-                    BackgroundGradientEnd = "#b350d1",
-                    Glyph = "\xe800"
-                }
+                 }
             };
 
             this.ProfileImage = App.ImageServerPath + "ProfileImage1.png";
@@ -65,7 +95,7 @@ namespace SmartGas.ViewModels
             this.RegistOutCommand = new Command(RegisOutClicked);
             this.RegistReturnCommand = new Command(RegisReturnClicked);
             this.RegistChartCommand = new Command(RegisChartClicked);
-            
+
             UserId = Preferences.Get("userId", "");
             UserName = Preferences.Get("userName", "");
             UserInfo = UserName;
@@ -75,9 +105,21 @@ namespace SmartGas.ViewModels
         private async Task RegisClickedAsync(object obj)
         {
             var btn = obj as Syncfusion.XForms.Buttons.SfChip;
-            if(btn.Text == "NHÂP KHO")
+            if (btn.Text == "NHÂP KHO")
             {
                 await Navigation.NavigateToAsync<RegistInMainActionViewModel>();
+            }
+            else if (btn.Text == "XUẤT KHO")
+            {
+                await Navigation.NavigateToAsync<RegistOutMainActionViewModel>();
+            }
+            else if (btn.Text == "TRẢ BÌNH RỖNG")
+            {
+                await Navigation.NavigateToAsync<RegistReturnGasViewModel>();
+            }
+            else if (btn.Text == "BIỂU ĐỒ")
+            {
+
             }
         }
 
@@ -94,9 +136,9 @@ namespace SmartGas.ViewModels
             //await Navigation.NavigateToAsync<RegistOutViewModel>();
         }
 
-        private async void RegisInClicked(object obj)
+        private void RegisInClicked(object obj)
         {
-            
+
         }
 
         #endregion

@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SmartGas.Views.RegistReturnGasPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:SmartGas.Behaviors"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:controls="clr-namespace:SmartGas.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="documentList"
+    BackgroundColor="{DynamicResource Gray-Bg}"
+    NavigationPage.HasNavigationBar="True"
+    mc:Ignorable="d">
+
+    <ContentPage.Content>
+
+        <Grid
+            ColumnSpacing="0"
+            RowDefinitions="Auto, Auto,Auto, *"
+            RowSpacing="0">
+
+            <StackLayout
+                x:Name="TitleView"
+                Grid.Row="0"
+                Padding="8,8"
+                BackgroundColor="{DynamicResource Gray-Bg}"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                Spacing="0">
+
+                <StackLayout
+                    x:Name="TitleLayout"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="True"
+                    Orientation="Horizontal"
+                    Spacing="0"
+                    VerticalOptions="FillAndExpand">
+
+                    <!--  Documents List page Title  -->
+                    <Label
+                        Margin="16,0"
+                        FontFamily="Montserrat-Medium"
+                        HorizontalOptions="FillAndExpand"
+                        Style="{StaticResource TitleLabelStyle}"
+                        Text="Danh sách trả bình"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center" />
+
+                </StackLayout>
+            </StackLayout>
+
+            <BoxView Grid.Row="1" Style="{DynamicResource HorizontalSeparatorStyle}" />
+            <buttons:SfButton x:Name="btnScanQR" Grid.Row="2" ShowIcon="True" Margin="0,10,0,10" WidthRequest="120" Text="SCAN" TextColor="White" Style="{StaticResource GradientButtonStyle}" FontFamily="Montserrat-SemiBold" Command="{Binding ScanQRCodeCommand}">
+                <buttons:SfButton.ImageSource>
+                    <FontImageSource FontFamily="FontIcons_GAS" Glyph="{StaticResource scanQrCode}" Size="100" >
+                    </FontImageSource>
+                </buttons:SfButton.ImageSource>
+            </buttons:SfButton>
+
+            <StackLayout Grid.Row="3" Spacing="0">
+
+                <controls:SearchableDocumentsList
+                    x:Name="InputList"
+                    AllowSwiping="True"
+                    AutoFitMode="Height"
+                    IsScrollBarVisible="False"
+                    ItemSpacing="0"
+                    ItemsSource="{Binding ReturnGasList,Mode=OneWay}"
+                    SearchText="{Binding SearchText}"
+                    SelectionBackgroundColor="{DynamicResource Gray-200}"
+                    SelectionGesture="Tap"
+                    SelectionMode="Single"
+                    TapCommand="{Binding ItemTappedCommand}"
+                    VerticalOptions="FillAndExpand">
+
+                    <controls:SearchableDocumentsList.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Spacing="0">
+
+                                    <Grid
+                                        ColumnDefinitions="Auto, Auto, Auto, *"
+                                        ColumnSpacing="0"
+                                        HeightRequest="72"
+                                        RowDefinitions="Auto, Auto, Auto"
+                                        RowSpacing="0">
+
+                                        <!--  Account Icon  -->
+                                        <Label
+                                            Grid.RowSpan="3"
+                                            Margin="17,0"
+                                           FontFamily="FontIcons_GAS"
+                                            FontSize="18"
+                                            Text="{StaticResource Rotate}"
+                                            TextColor="{DynamicResource Gray-600}"
+                                            VerticalOptions="CenterAndExpand" />
+
+                                        <!--  Document Name  -->
+                                        <Label
+                                            Grid.Column="1"
+                                            Grid.ColumnSpan="3"
+                                            Margin="0,13,0,0"
+                                            FontFamily="Montserrat-Medium"
+                                            FontSize="16"
+                                            HeightRequest="24"
+                                            Text="{Binding GAS_ID,Mode=OneWay}"
+                                            TextColor="{DynamicResource Gray-900}" />
+
+                                        <!--  Time  -->
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="0,0,0,14"
+                                            FontFamily="Montserrat-Medium"
+                                            FontSize="14"
+                                            HeightRequest="21"
+                                            Text="{Binding DATE_RETURN,Mode=OneWay}"
+                                            TextColor="{DynamicResource Gray-700}" />
+
+                                        <!--  Document Size  -->
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            Margin="24,0,0,14"
+                                            FontFamily="Montserrat-Medium"
+                                            FontSize="14"
+                                            HeightRequest="21"
+                                            Text="{Binding USER_RETURN,Mode=OneWay}"
+                                            TextColor="{DynamicResource Gray-700}" />
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="3"
+                                            Margin="24,0,0,14"
+                                            FontFamily="Montserrat-Medium"
+                                            FontSize="14"
+                                            HeightRequest="21"
+                                            Text="{Binding DEPT_CODE,Mode=OneWay}"
+                                            TextColor="{DynamicResource Gray-700}" />
+
+                                        <!--  Seperator  -->
+                                        <BoxView
+                                            Grid.Row="2"
+                                            Grid.ColumnSpan="4"
+                                            Style="{DynamicResource HorizontalSeparatorStyle}" />
+
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </controls:SearchableDocumentsList.ItemTemplate>
+                </controls:SearchableDocumentsList>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

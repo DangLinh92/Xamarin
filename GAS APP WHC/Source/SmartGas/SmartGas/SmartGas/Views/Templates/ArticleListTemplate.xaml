@@ -22,7 +22,7 @@
         TouchUpCommandParameter="{Binding}">
         <Grid
             ColumnSpacing="16"
-            HeightRequest="110"
+            HeightRequest="80"
             RowDefinitions="*, Auto, Auto"
             RowSpacing="0">
 
@@ -39,36 +39,36 @@
             <!--  Blog image  -->
             <Image
                 Grid.RowSpan="3"
-                Margin="16,0,0,0"
+                Margin="0,0,0,0"
                 Aspect="AspectFill"
                 BackgroundColor="{DynamicResource Gray-200}"
-                HeightRequest="110"
+                HeightRequest="55"
                 Source="{Binding ImagePath}"
                 VerticalOptions="Center"
-                WidthRequest="120" />
+                WidthRequest="60" />
 
             <!--  Blog title  -->
             <Label
                 Grid.Column="1"
-                Margin="0,8,0,0"
+                Margin="0,0,0,0"
                 FontSize="14"
                 HorizontalOptions="Start"
                 HorizontalTextAlignment="Start"
                 LineBreakMode="TailTruncation"
                 MaxLines="2"
                 Style="{StaticResource TitleLabelStyle}"
-                Text="{Binding Name}" />
+                Text="{Binding GasId}" />
 
-            <!--  Author name  -->
+            <!--  Quantity  -->
             <Label
                 Grid.Row="1"
                 Grid.Column="1"
                 Margin="0,8,0,0"
                 FontFamily="Montserrat-Medium"
-                FontSize="12"
+                FontSize="14"
                 LineHeight="{OnPlatform Default=-1,
                                         Android=1.5}"
-                Text="{Binding Author}"
+                Text="{Binding QuantityBindding}"
                 TextColor="{DynamicResource Gray-900}" />
 
             <!--  Published date and Average reading time  -->
@@ -83,9 +83,9 @@
                 TextColor="{DynamicResource Gray-700}">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{Binding Date}" />
+                        <Span Text="{Binding Department}" />
                         <Span Text=" | " />
-                        <Span Text="{Binding AverageReadingTime}" />
+                        <Span Text="{Binding Date}" />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
