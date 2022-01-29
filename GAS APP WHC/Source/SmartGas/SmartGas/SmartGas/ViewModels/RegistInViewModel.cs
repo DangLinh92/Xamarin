@@ -344,13 +344,17 @@ namespace SmartGas.ViewModels
                 string[] infors = qrCode.Split('$');
                 if (infors.Length >= 7)
                 {
-                    if (infors[0].Length > 8 && Application.Current.Resources["Department"] + "" == Constants.SMT_DEPT)
+                    if (Application.Current.Resources["Department"] + "" == Constants.SMT_DEPT)
                     {
                         List<string> spCodes = await InOutStockService.GetSparepartByEncript(Constants.SMT_DEPT, infors[0]);
 
                         if (spCodes.Count > 0)
                         {
                             Code.Value = spCodes[0];
+                        }
+                        else
+                        {
+                            Code.Value = infors[0];
                         }
                     }
                     else

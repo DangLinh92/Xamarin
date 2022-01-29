@@ -140,6 +140,7 @@ namespace SmartGasAPI.Controllers
         {
             try
             {
+                List<string> spareparts = new List<string>();
                 _log4net.Info("GetSparepartByEncript: " + department + ":" + code);
                 var context = InstanceDB.context(department, _spDBContext, _mroDBContext) as SmartGas_MRO_DBcontext;
                 if (context == null) /*Spare part*/
@@ -148,7 +149,11 @@ namespace SmartGasAPI.Controllers
 
                     if (resultDB.N_RETURN == 0)
                     {
-                        return Helper.ConvertDataTable<string>((DataTable)resultDB.Data);
+                        foreach (DataRow item in ((DataTable)resultDB.Data).Rows)
+                        {
+                            spareparts.Add(item[0].ToString());
+                        }
+                        return spareparts;
                     }
                 }
 
